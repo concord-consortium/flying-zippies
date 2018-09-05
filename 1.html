@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Scene 1 - The Flying Zippies</title>
+<link rel="stylesheet" href="_assets/css/default.css" />
+</head>
+<body>
+<div id="page-container">
+  <div id="stage">
+    <video id="video" poster="_assets/video/1.jpg" preload="auto">
+      <source src="_assets/video/1.mp4" type="video/mp4" />
+      <source src="_assets/video/1.webm" type="video/webm" />
+    </video>
+    <!-- end #video -->
+  </div>
+  <!-- end #stage -->
+  <div id="controls">
+      <div id="text">
+        <p></p>
+      </div>
+      <a href="#" id="play" title="Play audio" onclick="return false;" style="display: block; opacity: 1;">play audio</a>
+      <a href="#" id="reload" title="Reload page" onclick="location.reload(); return false;">reload page</a>
+      <a href="index.html" id="left" title="Go backward one page">go back</a>
+      <a href="2.html" id="right" title="Go forward one page">continue</a>
+      <a href="index.html" id="home" title="Go to the home page">home</a>
+  </div>
+  <!-- /#controls -->
+</div>
+<div id="loading"></div>
+<!-- end #page-container -->
+<audio id="audio" src="_assets/audio/1.mp3?v3" preload="auto" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://concord-consortium.github.io/iframe-phone/dist/iframe-phone.js"></script>
+<script src="_assets/js/functions.js?v5"></script>
+<script>
+var audio_icon_flasher, instructions_counter = 0, back_click = false, backclick_timer;
+var instructions = [
+  'Hi there! I\'m so glad you\'re here on this most exciting day. As you can see, the warm air is moving quickly.',
+  'It\'s a perfect summer day for the Mighty Micro Circus. I\'ll let my friend Reggie the Ringmaster tell you more about it. Let\'s go meet him.',
+  'Step right up! Step right up! You do not want to miss this. We only have a few tickets left to see the most special of special treats.',
+  'A high-flying show from the world famous Flying Zippies! Step right up! You will not believe your eyes when those Zippies start to fly!'
+  ];
+
+$(document).ready(function() {
+  initializePage();
+  $('#audio').bind('timeupdate', function(){
+    if (this.currentTime < 1 && this.currentTime > .1) {
+      $('#text p').html(instructions[0]);
+    }
+    if(this.currentTime >= 8.5) {
+      $('#text p').html(instructions[1]);
+    }
+    if(this.currentTime >= 19.5) {
+      $('#text p').html(instructions[2]);
+    }
+    if(this.currentTime >= 32) {
+      $('#text p').html(instructions[3]);
+    }
+  });
+});
+
+</script>
+</body>
+</html>

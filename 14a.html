@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Scene 14 - The Flying Zippies</title>
+<link rel="stylesheet" href="_assets/css/default.css" />
+</head>
+<body>
+<div id="page-container">
+  <div id="stage">
+    <video id="video" poster="_assets/video/14-a.jpg" preload="auto">
+      <source src="_assets/video/14-a.mp4" type="video/mp4" />
+      <source src="_assets/video/14.webm" type="video/webm" />
+    </video>
+    <!-- end #video -->
+    <div id="model-container">
+      <div id="iframe-container-outer">
+        <div id="iframe-container-inner">
+          <iframe id="interactive-iframe" width="100%" height="100%" src="https://lab.concord.org/embeddable.html#interactives/sensing-science/flying-zippies/model-zippy-sweeping-zippies.json"></iframe>
+        </div>
+      </div>
+      <div id="bump-stage-overlay"></div>
+    </div>
+    <!-- end #model-container -->
+  </div>
+  <!-- end #stage -->
+  <div id="controls">
+      <div id="text">
+        <p></p>
+      </div>
+      <a href="#" id="play" title="Play audio" onclick="return false;" style="display: block; opacity: 1;">play audio</a>
+      <a href="#" id="reload" title="Reload page" onclick="location.reload(); return false;">reload page</a>
+      <a href="13.html" id="left" title="Go backward one page">go back</a>
+      <a href="15.html" id="right" title="Go forward one page">continue</a>
+      <a href="index.html" id="home" title="Go to the home page">home</a>
+  </div>
+  <!-- /#controls -->
+</div>
+<!-- end #page-container -->
+<audio id="audio" src="_assets/audio/14-a.mp3" preload="auto" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://concord-consortium.github.io/iframe-phone/dist/iframe-phone.js"></script>
+<script src="_assets/js/functions.js"></script>
+<script>
+
+var interactive, interactive_timer, next_step_timer, audio_icon_flasher, instructions_counter = 0;
+var instructions = [
+  'The air in the tent slowed down when we put out the torches.',
+  'The Zippies could not keep flying because the air was not bumping them enough.',
+  'We need to move the Zippies out of the ring. Let\'s call in Seymour Sweeper to gently sweep them out.',
+  'Do you think Seymour Sweeper can sweep the Zippies all the way out to the dressing room?',
+  'Let\'s see what really happens.',
+  'The particles show what happened when Seymour Sweeper tried to move out the Zippies with a broom.',
+  'Did Seymour move the Zippies out of the ring? What happened when he tried to sweep them out of the ring?',
+  'Looks like the broom just passed through the particles in their liquid state.'
+  ];
+
+$(document).ready(function() {
+  $('#interactive-iframe').load(function() {
+    interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+  });
+  initializePage();
+  $('#video1').bind('ended', function(){
+    interactive.post('start');
+    showTheModel();
+  });
+  $('#audio1').bind('timeupdate', function(){
+    if(this.currentTime < 1 && this.currentTime > .1) {
+      $('#text p').html(instructions[0]);
+    }
+    if(this.currentTime >= 5) {
+      $('#text p').html(instructions[1]);
+    }
+    if(this.currentTime >= 10) {
+      $('#text p').html(instructions[2]);
+    }
+    if(this.currentTime >= 18) {
+      $('#text p').html(instructions[3]);
+    }
+    if (this.currentTime >= 22.5) {
+      $('#audio1').get(0).pause();
+      $('#video').get(0).pause();
+      $('#audio1').unbind('timeupdate');
+      $('#audio').addClass('disabled');
+      $('#audio').unbind('click');
+      next_step_timer = setTimeout('secondStep()', 8000);
+    }
+  });
+});
+
+function secondStep() {
+  clearTimeout(next_step_timer);
+  $('#audio1').bind('ended', function(){
+    thirdStep();
+  });
+  $('#audio1').bind('timeupdate', function() {
+    if(this.currentTime >= 23.5) {
+      $('#text p').html(instructions[4]);
+      showTheModel();
+    }
+  });
+  $('#audio').click(function(){
+    $('#audio1').get(0).play();
+    $('#video').get(0).play();
+  });
+  audioIconFlasher('go');
+}
+
+function thirdStep() {
+  interactive.post('set', {name: 'sweep', value: true});
+  $('#audio1').unbind('timeupdate');
+  $('#audio1').attr('src', '_assets/audio/14-b.mp3');
+  $('#audio1').bind('timeupdate', function() {
+    if(this.currentTime >= 7) {
+      $('#bump-stage-overlay').html('<img src="_assets/img/ring-master.gif" />');
+      $('#text p').html(instructions[6]);
+    }
+    if(this.currentTime >= 14.25) {
+      $('#audio1').unbind('timeupdate');
+      //$('#video').get(0).pause();
+      $('#audio1').get(0).pause();
+      $('#audio').addClass('disabled');
+      $('#audio').unbind('click');
+      $('#audio').click(function() {
+        finalStep();
+      });
+      next_step_timer = setTimeout("audioIconFlasher('go')", 8000);
+    }
+  });
+  $('#audio1').get(0).play();
+  $('#text p').html(instructions[5]);
+}
+
+function finalStep() {
+  $('#audio1').unbind('ended');
+  $('#audio1').unbind('timeupdate');
+  $('#audio1').bind('ended', function(){
+    $('#audio1').addClass('disabled');
+  });
+  $('#audio1').get(0).play();
+  $('#text p').html(instructions[7]);
+  setTimeout('enableNextLink()', 5000);
+}
+
+</script>
+</body>
+</html>

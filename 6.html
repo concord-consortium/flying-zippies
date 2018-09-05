@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Scene 6 - The Flying Zippies</title>
+<link rel="stylesheet" href="_assets/css/default.css" />
+</head>
+<body>
+<div id="page-container">
+  <div id="stage">
+    <video id="video" poster="_assets/video/6.jpg" preload="auto">
+      <source src="_assets/video/6.mp4" type="video/mp4" />
+      <source src="_assets/video/6.webm" type="video/webm" />
+    </video>
+    <!-- end #video -->
+  </div>
+  <!-- end #stage -->
+  <div id="controls">
+      <div id="text">
+        <p></p>
+      </div>
+      <a href="#" id="play" title="Play audio" onclick="return false;" style="display: block; opacity: 1;">play audio</a>
+      <a href="#" id="reload" title="Reload page" onclick="location.reload(); return false;">reload page</a>
+      <a href="5.html" id="left" title="Go backward one page">go back</a>
+      <a href="7.html" id="right" title="Go forward one page">continue</a>
+      <a href="index.html" id="home" title="Go to the home page">home</a>
+  </div>
+  <!-- /#controls -->
+</div>
+<!-- end #page-container -->
+<div id="loading"></div>
+<audio id="audio" src="_assets/audio/6.mp3?vv3" preload="auto" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://concord-consortium.github.io/iframe-phone/dist/iframe-phone.js"></script>
+<script src="_assets/js/functions.js"></script>
+<script>
+var audio_icon_flasher, instructions_counter = 0;
+var instructions = [
+  'Boo! We want to see you fly!',
+  'We want our money back!',
+  'Uh oh! The crowd is not happy.',
+  'I see that the Zippies have changed from a sleepy solid to a runny liquid.',
+  'They are moving a little faster and flowing around each other, but the crowd wants them to fly like a gas. How will they ever rise above the ring?',
+  'The crowd is getting mad and wants to see them up in the air. Let\'s bring in the rest of the family. Maybe that will get the Zippies flying.',
+  'We have ten more Zippies waiting over here. They have been in the tent for a while and are moving just as fast as the first group of Zippies that we rolled into the tent.'
+  ];
+
+$(document).ready(function() {
+  initializePage();
+  $('#audio').bind('timeupdate', function(){
+    if(this.currentTime < 1 && this.currentTime > .1) {
+      $('#text p').html(instructions[0]);
+    }
+    if(this.currentTime >= 3) {
+      $('#text p').html(instructions[1]);
+    }
+    if(this.currentTime >= 5.25) {
+      $('#text p').html(instructions[2]);
+    }
+    if(this.currentTime >= 9.25) {
+      $('#text p').html(instructions[3]);
+    }
+    if(this.currentTime >= 14.25) {
+      $('#text p').html(instructions[4]);
+    }
+    if(this.currentTime >= 24) {
+      $('#text p').html(instructions[5]);
+    }
+    if(this.currentTime >= 33) {
+      $('#text p').html(instructions[6]);
+    }
+  });
+});
+</script>
+</body>
+</html>

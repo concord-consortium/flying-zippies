@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Scene 12 - The Flying Zippies</title>
+<link rel="stylesheet" href="_assets/css/default.css" />
+</head>
+<body>
+<div id="page-container">
+  <div id="stage">
+    <video id="video" poster="_assets/video/12.jpg" preload="auto">
+      <source src="_assets/video/12.mp4" type="video/mp4" />
+      <source src="_assets/video/12.webm" type="video/webm" />
+    </video>
+    <!-- end #video -->
+    <div id="model-container">
+      <div id="iframe-container-outer">
+        <div id="iframe-container-inner">
+          <iframe id="interactive-iframe" width="100%" height="100%" src="https://lab.concord.org/embeddable.html#interactives/sensing-science/flying-zippies/model-zippy-torches-going-out.json"></iframe>
+        </div>
+      </div>
+      <div id="bump-stage-overlay"></div>
+    </div>
+    <!-- end #model-container -->
+  </div>
+  <!-- end #stage -->
+  <div id="controls">
+      <div id="text">
+        <p></p>
+      </div>
+      <a href="#" id="play" title="Play audio" onclick="return false;" style="display: block; opacity: 1;">play audio</a>
+      <a href="#" id="reload" title="Reload page" onclick="location.reload(); return false;">reload page</a>
+      <a href="11.html" id="left" title="Go backward one page">go back</a>
+      <a href="13.html" id="right" title="Go forward one page">continue</a>
+      <a href="index.html" id="home" title="Go to the home page">home</a>
+  </div>
+  <!-- /#controls -->
+</div>
+<!-- end #page-container -->
+<div id="loading"></div>
+<audio id="audio" src="_assets/audio/12-a.mp3?vvv" preload="auto" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://concord-consortium.github.io/iframe-phone/dist/iframe-phone.js"></script>
+<script src="_assets/js/functions.js?v2"></script>
+<script>
+var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+interactive.addListener('modelLoaded', function() {
+  interactive.post('stop');
+});
+
+var final_question_timer, next_step_timer, audio_icon_flasher, instructions_counter = 0;
+var instructions = [
+  'Psssst. If the heat from the torches caused the Zippies to move faster, maybe we should put out the torches to make the Zippies slow down.',
+  'If we put out the fire, what will happen to the air and to the Zippies?',
+  'Let\'s see what really happens. These particles show what happens when we put the torch\'s fire out and the air particles slow down.',
+  ];
+
+$(document).ready(function() {
+  initializePage();
+  $('#audio').unbind('ended');
+  $('#audio').bind('ended', function() {
+    $('#play').addClass('disabled');
+  });
+  $('#audio').bind('timeupdate', function(){
+    if(this.currentTime < 1 && this.currentTime > .1) {
+      $('#text p').html(instructions[0]);
+    }
+    if(this.currentTime >= 9.5) {
+      $('#text p').html(instructions[1]);
+    }
+    if(this.currentTime >= 15) {
+      $('#audio').get(0).pause();
+      $('#video').get(0).pause();
+      $('#play').addClass('disabled');
+      next_step_timer = setTimeout('nextStep()', 5000);
+    }
+  });
+});
+
+function nextStep() {
+  $('#audio').unbind('timeupdate');
+  clearTimeout(next_step_timer);
+  $('#play').click(function(){
+    showTheModel();
+    setTimeout('putOutTorches()', 2000);
+    finalQuestion();
+  });
+  audioIconFlasher('go');
+}
+
+function putOutTorches() {
+  interactive.post('set', {name: 'isPuttingTorchesOut', value: true});
+}
+
+function finalQuestion() {
+  $('#video').unbind('ended');
+  $('#audio').unbind('timeupdate');
+  $('#audio').attr('src', '_assets/audio/12-b.mp3');
+  $('#audio').get(0).play();
+  $('#text p').html(instructions[2]);
+  setTimeout('enableNextLink()', 12000);
+}
+</script>
+</body>
+</html>

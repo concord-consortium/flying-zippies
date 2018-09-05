@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Scene 4 - The Flying Zippies</title>
+<link rel="stylesheet" href="_assets/css/default.css" />
+</head>
+<body>
+<div id="page-container">
+  <div id="stage">
+    <video id="video" poster="_assets/video/4.jpg" preload="auto">
+      <source src="_assets/video/4.mp4" type="video/mp4" />
+      <source src="_assets/video/4.webm" type="video/webm" />
+    </video>
+    <!-- end #video -->
+  </div>
+  <!-- end #stage -->
+  <div id="controls">
+      <div id="text">
+        <p></p>
+      </div>
+      <a href="#" id="play" title="Play audio" onclick="return false;" style="display: block; opacity: 1;">play audio</a>
+      <a href="#" id="reload" title="Reload page" onclick="location.reload(); return false;">reload page</a>
+      <a href="3.html" id="left" title="Go backward one page">go back</a>
+      <a href="5.html" id="right" title="Go forward one page">continue</a>
+      <a href="index.html" id="home" title="Go to the home page">home</a>
+  </div>
+  <!-- /#controls -->
+</div>
+<!-- end #page-container -->
+<div id="loading"></div>
+<audio id="audio" src="_assets/audio/4.mp3" preload="auto" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="https://concord-consortium.github.io/iframe-phone/dist/iframe-phone.js"></script>
+<script src="_assets/js/functions.js"></script>
+<script>
+var audio_icon_flasher, instructions_counter = 0;
+var instructions = [
+  'The Zippies are still holding on to each other as they slide back and forth. We need to get them to let go so that they can fly.',
+  'I know! Let\'s roll their cart into the big top tent. The faster air in there will bump the Zippies more than the slow air in here.',
+  'After we move the Zippies to the faster moving air in the tent, what do you think will change? Will the Zippies move differently?'
+  ];
+
+$(document).ready(function() {
+  initializePage();
+  $('#audio').unbind('ended');
+  $('#audio').bind('ended', function() {
+    setTimeout('enableNextLink()', 4000);
+    $('#play').addClass('disabled');
+  });
+  $('#audio').bind('timeupdate', function(){
+    if(this.currentTime < 1 && this.currentTime > .1) {
+      $('#text p').html(instructions[0]);
+    }
+    if(this.currentTime >= 8.25) {
+      $('#text p').html(instructions[1]);
+    }
+    if(this.currentTime >= 17.75) {
+      $('#text p').html(instructions[2]);
+    }
+  });
+});
+</script>
+</body>
+</html>
