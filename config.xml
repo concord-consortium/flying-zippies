@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "org.concord.fz"
+    versionCode = "1"
+    version     = "0.0.1" >
+
+<!-- versionCode is optional and Android only -->
+
+  <name>Flying Zippes</name>
+
+  <description>
+      Flying Zippies
+  </description>
+
+  <author href="https://concord.org" email="sfentress@concord.org">
+      The Concord Consortium
+  </author>
+
+  <platform name="ios" />
+  <platform name="android" />
+
+</widget>
