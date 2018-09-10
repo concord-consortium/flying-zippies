@@ -445,7 +445,7 @@ body {
   #stage #video { left: 0; margin-left: 0; position: relative; }
   #model-container {
     height: 100%;
-    left: 0;
+    left: 23px;
     margin: 0;
     width: 100%;
   }
