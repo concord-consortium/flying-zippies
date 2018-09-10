@@ -11,7 +11,7 @@
     <div id="model-container">
       <div id="iframe-container-outer">
         <div id="iframe-container-inner">
-          <iframe id="interactive-iframe" width="100%" height="100%" src="http://lab.concord.org/embeddable.html#interactives/sensing-science/flying-zippies/model-zippy-solid-tipping.json"></iframe>
+          <iframe id="interactive-iframe" width="100%" height="100%" src="http://lab.concord.org/embeddable.html"></iframe>
         </div>
       </div>
       <div id="bump-stage-overlay"></div>
@@ -42,6 +42,10 @@
 var audio_icon_flasher, instructions_counter = 0;
 
 var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
+$.get('/interactives/model-zippy-solid-tipping.json', (json) => {
+  interactive.post('loadInteractive', json);
+});
+
 interactive.addListener('modelLoaded', function() {
   interactive.post('stop');
 });

@@ -1,0 +1,67 @@
+{
+  "title": "Flying Zippies - Sweeping Zippies",
+  "publicationStatus": "draft",
+  "subtitle": "Seeping Zippies...",
+  "category": "",
+  "subCategory": "",
+  "screenshot": "",
+  "aspectRatio": 1.777777778,
+  "fontScale": 1,
+  "lang": "en-US",
+  "i18nMetadata": "",
+  "helpOnLoad": false,
+  "theme": "no-framing",
+  "showTopBar": false,
+  "showBottomBar": false,
+  "padding": 0,
+  "about": "",
+  "models": [
+    {
+      "type": "md2d",
+      "id": "model",
+      "url": "../models/zippy-sweeping-zippies.json",
+      "onLoad": [
+        "for (var i = 0, a; i < getNumberOfAtoms(); i++) {",
+        "  a = getAtomProperties(i);",
+        "  if (a.element === 2) { set('chargedAtom', i); }",
+        "}",
+        "//start();",
+        "//setTimeout(function() { set('sweep', true); }, 7000);"
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "chargedAtom",
+      "initialValue": null
+    },
+    {
+      "name": "sweep",
+      "initialValue": false,
+      "onChange": [
+        "if (value) {",
+        "  var broomX = 13;",
+        "  var broomVx = -0.075;",
+        "  var zippiesPushed = false;",
+        "  function pushZippies() {",
+        "    zippiesPushed = true;",
+        "    var chargedAtom = get('chargedAtom');",
+        "    setAtomProperties(chargedAtom, {charge: -350});",
+        "    callAt(get('time') + 1000, function() {",
+        "      setAtomProperties(chargedAtom, {charge: 50});",
+        "    });",
+        "  }",
+        "  function moveBroom() {",
+        "    setImageProperties(1, {imageX: broomX});",
+        "    broomX += broomVx;",
+        "    if (broomX > -5) { setTimeout(moveBroom, 16); }",
+        "    if (!zippiesPushed && broomX < 9) { pushZippies(); }",
+        "  }",
+        "  moveBroom();",
+        "}"
+      ]
+    }
+  ],
+  "layout": {},
+  "template": "model-only"
+}
