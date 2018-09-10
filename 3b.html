@@ -10,7 +10,6 @@
   <div id="stage">
     <video style="display: none;" id="video" poster="_assets/video/3-b.jpg" preload="auto">
       <source src="_assets/video/3-b.mp4" type="video/mp4" />
-      <source src="_assets/video/3-b.webm" type="video/webm" />
     </video>
     <!-- end #video -->
     <div id="model-container">
@@ -89,7 +88,6 @@ function nextStep() {
 function nextQuestion() {
   hideTheModel();
   $('#video source#mp4-src').attr('src', '_assets/video/3-b.mp4');
-  $('#video source#webm-src').attr('src', '_assets/video/3-b.webm');
   $('#video').get(0).load();
   $('#audio1').unbind('timeupdate');
   $('#audio1').attr('src', '_assets/audio/3-c.mp3?v3');
