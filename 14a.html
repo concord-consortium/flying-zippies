@@ -58,7 +58,7 @@ var instructions = [
 $(document).ready(function() {
   $('#interactive-iframe').load(function() {
     interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
-    $.get('/interactives/model-zippy-sweeping-zippies.json', (json) => {
+    $.get('interactives/model-zippy-sweeping-zippies.json', (json) => {
       interactive.post('loadInteractive', json);
     });
   });

@@ -44,7 +44,7 @@
 <script src="_assets/js/functions.js?v2"></script>
 <script>
 var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
-$.get('/interactives/model-zippy-torches-going-out.json', (json) => {
+$.get('interactives/model-zippy-torches-going-out.json', (json) => {
   interactive.post('loadInteractive', json);
 });
 
