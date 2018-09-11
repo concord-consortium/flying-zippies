@@ -20,4 +20,7 @@
   <platform name="ios" />
   <platform name="android" />
 
+  <preference name="AllowInlineMediaPlayback" value="true" />
+  <preference name="orientation"              value="landscape" />
+
 </widget>
