@@ -46,6 +46,7 @@ var final_question_timer, interactive, audio_icon_flasher, instructions_counter 
 
 var interactive = new iframePhone.ParentEndpoint($('#interactive-iframe')[0]);
 $.get('interactives/model-zippy-solid-tipping.json', (json) => {
+  if (typeof json === "string") json = JSON.parse(json);
   interactive.post('loadInteractive', json);
 });
 
