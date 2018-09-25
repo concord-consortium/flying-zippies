@@ -17,10 +17,17 @@
       The Concord Consortium
   </author>
 
-  <platform name="ios" />
-  <platform name="android" />
-
   <preference name="AllowInlineMediaPlayback" value="true" />
   <preference name="orientation"              value="landscape" />
+
+  <platform name="ios">
+    <icon src="icon.png" />
+    <icon src="res/icon-40.png" platform="ios" width="40" height="40" />
+    <icon src="res/icon-76.png" platform="ios" width="76" height="76" />
+    <icon src="res/icon-120.png" platform="ios" width="120" height="120" />
+    <icon src="res/icon-152.png" platform="ios" width="152" height="152" />
+
+    <splash src="splash.png" />
+  </platform>
 
 </widget>
