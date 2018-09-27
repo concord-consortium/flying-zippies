@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>The Flying Zippies</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
 <link rel="stylesheet" href="_assets/css/default.css" />
 </head>
 <body class="home">
@@ -18,8 +18,14 @@
     <li><a href="16.html"><img src="_assets/img/thumbs/16.jpg" />Wrap Up</a></li>
   </ul>
 </div>
+<img id="splash" src="splash.jpg" />
 <script src="_assets/js/jquery-2.1.0.min.js"></script>
 <script src="_assets/js/iframe-phone.js"></script>
 <script src="_assets/js/functions.js"></script>
 </body>
+<script>
+setTimeout(function() {
+  $("#splash").fadeOut(500);
+}, 1000);
+</script>
 </html>

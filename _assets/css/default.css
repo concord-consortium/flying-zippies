@@ -466,3 +466,15 @@ body {
     width: 100% !important;
     }
 }
+
+#splash {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: opacity 0.5s;
+}

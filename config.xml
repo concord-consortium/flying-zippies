@@ -3,7 +3,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "org.concord.fz"
     versionCode = "1"
-    version     = "1.0.1" >
+    version     = "1.0.2" >
 
 <!-- versionCode is optional and Android only -->
 
@@ -19,6 +19,9 @@
 
   <preference name="AllowInlineMediaPlayback" value="true" />
   <preference name="orientation"              value="landscape" />
+
+  <plugin name="cordova-plugin-statusbar" />
+  <preference name="StatusBarOverlaysWebView" value="true" />
 
   <platform name="ios">
     <icon src="icon.png" />
