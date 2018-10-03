@@ -3,7 +3,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "org.concord.fz"
     versionCode = "1"
-    version     = "1.0.2" >
+    version     = "1.0.3" >
 
 <!-- versionCode is optional and Android only -->
 
@@ -22,6 +22,7 @@
 
   <plugin name="cordova-plugin-statusbar" />
   <preference name="StatusBarOverlaysWebView" value="true" />
+  <preference name="target-device" value="tablet" />
 
   <platform name="ios">
     <icon src="icon.png" />
