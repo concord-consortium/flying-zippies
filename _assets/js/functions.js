@@ -72,10 +72,12 @@ function hideTheModel() {
 }
 
 function playAudio() {
-  $('#audio').get(0).play();
-  audioIconFlasher('stop');
-  if ($('#video').length > 0) {
-    $('#video').get(0).play();
+  if (!isPlaying($('#audio').get(0))) {
+    $('#audio').get(0).play();
+    audioIconFlasher('stop');
+    if ($('#video').length > 0) {
+      $('#video').get(0).play();
+    }
   }
   return false;
   /* var audio_file = document.getElementById('audio1').src.split(/(\\|\/)/g).pop();
@@ -97,6 +99,7 @@ function playAudio() {
   //audioIconFlasher('stop');
   return false; */
 }
+function isPlaying(audioElem) { return !audioElem.paused; }
 
 function audioIconFlasher(action) {
   clearTimeout(audio_icon_flasher);
